@@ -20,4 +20,26 @@ class DoctorRepository
     {
         return Doctor::create($data);
     }
+
+    public function update(int $id, array $data)
+    {
+        $doctor = Doctor::findOrFail($id);
+        $doctor->update($data);
+        return $doctor;
+    }
+
+    public function delete(int $id)
+    {
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+    }
+
+    public function filterBySpecialistAndHospital(int $hospitalId, int $specialistId)
+    {
+        return Doctor::with(['specialist', 'hospital'])
+            ->where('hospital_id', $hospitalId)
+            ->where('specialist_id', $specialistId)
+            ->get()
+            ->paginate(10);
+    }
 }
