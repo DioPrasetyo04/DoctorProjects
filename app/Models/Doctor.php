@@ -31,7 +31,7 @@ class Doctor extends Model
         return $this->belongsTo(Specialist::class, 'specialist_id');
     }
 
-    public function bookingTransaction()
+    public function bookingTransactions()
     {
         return $this->hasMany(BookingTransaction::class);
     }
@@ -43,6 +43,4 @@ class Doctor extends Model
         }
         return url(Storage::url($value));
     }
-
-    
 }
