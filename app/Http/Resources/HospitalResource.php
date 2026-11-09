@@ -14,6 +14,19 @@ class HospitalResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'photo' => $this->photo,
+            'city' => $this->city,
+            'phone' => $this->phone,
+            'about' => $this->about,
+            'address' => $this->address,
+            'post_code' => $this->post_code,
+            'doctors_count' => $this->doctors->count(),
+            'specialists_count' => $this->specialists->count(),
+            'doctors' => DoctorResource::collection($this->whenLoaded('doctors')),
+            'specialists' => SpecialistResource::collection($this->whenLoaded('specialists'))
+        ];
     }
 }
