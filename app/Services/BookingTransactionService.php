@@ -58,7 +58,7 @@ class BookingTransactionService
 
         if ($this->bookingTransactionRepository->isTimelotTakenForDoctor($data['doctor_id'], $data['started_at'], $data['time_at'])) {
             throw ValidationException::withMessages([
-                'time_at ' => ['The selected time slot is already taken for the selected doctor'],
+                'time_at' => ['The selected time slot is already taken for the selected doctor'],
             ]);
         }
 
@@ -76,7 +76,10 @@ class BookingTransactionService
         if (isset($data['proof']) && $data['proof'] instanceof UploadedFile) {
             $data['proof'] = $this->uploadProof($data['proof']);
         }
+
+        return $this->bookingTransactionRepository->create($data);
     }
+
 
     private function uploadProof(UploadedFile $file)
     {

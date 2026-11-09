@@ -116,7 +116,10 @@ class DoctorService
             $availability[$dateStr] = [];
 
             foreach ($timeSlots as $time) {
-                $isTaken = $doctor->bookingTransactions()->whereDate('started_at', $dateStr)->whereTime('started_at', $time)->exists();
+                $isTaken = $doctor->bookingTransactions()
+                    ->whereDate('started_at', $dateStr)
+                    ->where('time_at', $time)
+                    ->exists();
 
                 if (!$isTaken) {
                     $availability[$dateStr][] = $time;

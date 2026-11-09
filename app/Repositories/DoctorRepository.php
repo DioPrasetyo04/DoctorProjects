@@ -39,7 +39,6 @@ class DoctorRepository
         return Doctor::with(['specialist', 'hospital'])
             ->where('hospital_id', $hospitalId)
             ->where('specialist_id', $specialistId)
-            ->get()
-            ->paginate(10);
+            ->get();
     }
 }

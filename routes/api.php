@@ -17,8 +17,8 @@ Route::apiResource('specialists', SpecialistController::class);
 
 Route::controller(DoctorController::class)->group(function () {
     Route::apiResource('doctors', DoctorController::class);
-    Route::get('/doctors-filter', 'filterBySpecialistAndHospital');
-    Route::get('/doctors/{doctorId}/available-slots', 'availableSlots');
+    Route::get('doctors-filter', 'filterBySpecialistAndHospital');
+    Route::get('doctors/{doctorId}/available-slots', 'availableSlots');
 });
 
 Route::apiResource('hospitals', HospitalController::class);
@@ -30,11 +30,11 @@ Route::controller(HospitalSpecialistController::class)->group(function () {
 
 Route::controller(BookingTransactionController::class)->group(function () {
     Route::apiResource('transactions', BookingTransactionController::class);
-    Route::patch('/transactions/{id}/status', 'updateStatus');
+    Route::patch('transactions/{id}/status', 'updateStatus');
 });
 
 Route::controller(MyOrderController::class)->group(function () {
     Route::get('my-orders', 'index');
-    Route::get('my-orders', 'store');
+    Route::post('my-orders', 'store')->middleware('auth:sanctum');
     Route::get('my-orders/{id}', 'show');
 });

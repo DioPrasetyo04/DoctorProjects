@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DoctorRequest extends FormRequest
 {
@@ -23,8 +24,9 @@ class DoctorRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->route('doctor');
+
         return [
-            'name' => ['required', 'string', 'unique:doctors,name' . $id],
+            'name' => ['required', 'string', Rule::unique('doctors', 'name')->ignore($id)],
             'photo' => [$this->isMethod('post') ? 'required' : 'sometimes', 'image', 'max:2048'],
             'about' => ['required', 'string'],
             'yoe' => ['required', 'integer', 'min:0'],

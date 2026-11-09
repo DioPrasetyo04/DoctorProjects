@@ -41,11 +41,11 @@ class BookingTransactionRepository
         return BookingTransaction::create($data);
     }
 
-    public function isTimelotTakenForDoctor(int $doctorId, string $date, string $time)
+    public function isTimelotTakenForDoctor(int $doctorId, string $startedAt, string $timeAt): bool
     {
         return BookingTransaction::where('doctor_id', $doctorId)
-            ->where('date', $date)
-            ->where('time', $time)
+            ->where('started_at', $startedAt)
+            ->where('time_at', $timeAt)
             ->exists();
     }
 }
