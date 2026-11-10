@@ -41,6 +41,7 @@ class MyOrderController extends Controller
     public function store(BookingTransactionRequest $request)
     {
         $transaction = $this->bookingUserTransactionService->create($request->validated());
+        $transaction = $this->bookingUserTransactionService->getById($transaction->id, auth()->user()->id);
         return response()->json(new TransactionResource($transaction), 201);
     }
 }
